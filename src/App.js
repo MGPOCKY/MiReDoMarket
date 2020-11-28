@@ -18,6 +18,7 @@ class App extends Component {
     this.validate = this.validate.bind(this);
     let origin = dataList[randomInt]['origin'].split(' ');
     let link = dataList[randomInt]['link'];
+    let score = dataList[randomInt]['score'];
     const emptyarr = [];
     for(let i=0;i<origin.length;i++) {
       emptyarr.push("____");
@@ -35,6 +36,8 @@ class App extends Component {
       index: 0,
       example: exampleItems,
       finish: false,
+      sumScore: 0,
+      score: score,
     }
     console.log(this.state.origin);
   }
@@ -43,10 +46,12 @@ class App extends Component {
       if(this.validate()) {
         console.log("Success!");
         this.fillColor("green");
+        this.setState(() => ({sumScore: this.state.sumScore + this.state.score}))
       }
       else {
         console.log("Fail!");
         this.fillColor("red");
+        this.setState(() => ({score: this.state.score / 2}));
       }
       this.setState(() => ({
         finish: !this.state.finish,
@@ -114,9 +119,19 @@ class App extends Component {
       <div className="App">
         <YoutubeVideo link={this.state.link}></YoutubeVideo>
         <h2>입력한 버튼을 누르면 초기화 됩니다.</h2>
+        <br />
+        <br />
+        <br />
         <ResultLylic items={this.state.select}/>
+        <br />
+        <br />
+        <br />
         <h2>보기</h2>
         <YoutubeLylic func={this.selectCard} items={this.state.example}/>
+        <br />
+        <br />
+        <h1>해당 문제의 배점은 {this.state.score}점 입니다!!</h1>
+        <h1>총 {this.state.sumScore}점 입니다!!</h1>
       </div>
     );
   }

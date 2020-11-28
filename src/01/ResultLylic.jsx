@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import LylicBlock from './LylicBlock';
+import React, { Component } from "react";
 
 class ResultLylic extends Component {
   render() {
