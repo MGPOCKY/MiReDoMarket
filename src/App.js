@@ -9,37 +9,55 @@ import dataList from './data/data.json';
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log(dataList);
-    let randomInt = parseInt(Math.random() * dataList.length);
-    console.log(randomInt);
+    //console.log(dataList);
     this.shuffle = this.shuffle.bind(this);
     this.selectCard = this.selectCard.bind(this);
     this.resetCard = this.resetCard.bind(this);
     this.validate = this.validate.bind(this);
-    let origin = dataList[randomInt]['origin'].split(' ');
-    let link = dataList[randomInt]['link'];
-    let score = dataList[randomInt]['score'];
+    this.initVariable = this.initVariable.bind(this);
+
+    let initVar = this.initVariable();
+    this.state = {
+      origin: initVar[0],
+      arr: initVar[1],
+      select: initVar[2],
+      link: initVar[3],
+      index: 0,
+      example: initVar[4],
+      finish: false,
+      sumScore: 0,
+      score: initVar[5],
+    }
+    //console.log(this.state.origin);
+  }
+  initVariable(){
+    let randomInt = parseInt(Math.random() * dataList.length);
+    let originh = dataList[randomInt]['origin'].split(' ');
+
+    let linkh = dataList[randomInt]['link'];
+    let scoreh = dataList[randomInt]['score'];
     const emptyarr = [];
-    for(let i=0;i<origin.length;i++) {
+    for(let i=0;i<originh.length;i++) {
       emptyarr.push("____");
     }
-    let shufflearr = origin.slice();
-    this.shuffle(shufflearr);
-    const exampleItems = shufflearr.map((value, index) => <LylicBlock key={value} value={value} id={index} func={this.selectCard}/>);
-    const selectItems = emptyarr.map((value, index) => <LylicBlock key={index} value={value} id={index}/>);
-    console.log(origin);
-    this.state = {
-      origin: origin,
-      arr: shufflearr,
+    let shufflearrh = originh.slice();
+    this.shuffle(shufflearrh);
+    //console.log(shufflearrh);
+    let exampleItems = shufflearrh.map((value, index) => <LylicBlock key={index} value={value} id={index} func={this.selectCard}/>);
+    let selectItems = emptyarr.map((value, index) => <LylicBlock key={index} value={value} id={index}/>);
+
+    this.setState(() => ({
+      origin: originh,
+      arr: shufflearrh,
       select: selectItems,
-      link: link,
+      link: linkh,
       index: 0,
       example: exampleItems,
       finish: false,
-      sumScore: 0,
-      score: score,
-    }
-    console.log(this.state.origin);
+      sumScore: this.state.sumScore,
+      score: scoreh,
+    }))
+    return [originh, shufflearrh, selectItems, linkh, exampleItems, scoreh];
   }
   componentDidUpdate() {
     if(this.state.index === this.state.arr.length && !this.state.finish) {
@@ -118,7 +136,7 @@ class App extends Component {
     return (
       <div className="App">
         <YoutubeVideo link={this.state.link}></YoutubeVideo>
-        <h2>입력한 버튼을 누르면 초기화 됩니다.</h2>
+        <h2>입력한 글씨를 누르면 초기화 됩니다.</h2>
         <br />
         <br />
         <br />
@@ -132,6 +150,7 @@ class App extends Component {
         <br />
         <h1>해당 문제의 배점은 {this.state.score}점 입니다!!</h1>
         <h1>총 {this.state.sumScore}점 입니다!!</h1>
+        <button onClick={this.initVariable}>다른 문제</button>
       </div>
     );
   }
