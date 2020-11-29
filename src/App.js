@@ -27,6 +27,7 @@ class App extends Component {
       finish: false,
       sumScore: 0,
       score: initVar[5],
+      exampleOrigin: initVar[4],
     }
     //console.log(this.state.origin);
   }
@@ -56,6 +57,8 @@ class App extends Component {
       finish: false,
       sumScore: this.state.sumScore,
       score: scoreh,
+      exampleOrigin: exampleItems,
+      retry: false,
     }))
     return [originh, shufflearrh, selectItems, linkh, exampleItems, scoreh];
   }
@@ -69,7 +72,10 @@ class App extends Component {
       else {
         console.log("Fail!");
         this.fillColor("red");
-        this.setState(() => ({score: this.state.score / 2}));
+        this.setState(() => ({
+          score: this.state.score / 2,
+          retry: true,
+        }));
       }
       this.setState(() => ({
         finish: !this.state.finish,
@@ -79,7 +85,7 @@ class App extends Component {
   fillColor(color) {
     let change = this.state.select.slice();
     for(let i=0;i<this.state.arr.length;i++) {
-      change[i] = <LylicBlock className={color} key={i} value={change[i].props.value} id={i} func={this.resetCard}/>;
+      change[i] = <LylicBlock className={color} key={i} value={change[i].props.value} id={i}/>;
     }
     this.setState((state, props) => ({
       select: change,
@@ -92,12 +98,14 @@ class App extends Component {
     //console.log(e.target.id);
     let arr = this.state.arr.slice();
     let change = this.state.select.slice();
+    let exampleChange = this.state.example.slice();
     change[this.state.index] = <LylicBlock className="" key={this.state.index} value={arr[e.target.id]} id={e.target.id} func={this.resetCard}/>;
-
+    exampleChange[e.target.id] = <LylicBlock className="selected" key={e.target.id} value={arr[e.target.id]} id={e.target.id}/>;
     //console.log(arr);
     this.setState((state, props) => ({
       index: this.state.index + 1,
       select: change,
+      example: exampleChange,
     }));
   }
   resetCard(e) {
@@ -113,6 +121,7 @@ class App extends Component {
       index: 0,
       select: selectItems,
       finish: false,
+      example: this.state.exampleOrigin,
     }));
   }
   shuffle(a) {
@@ -133,9 +142,10 @@ class App extends Component {
     return true;
   }
   render() {
+    let retry = this.state.retry ? <button onClick={this.resetCard}>재시도</button> : "";
     return (
       <div className="App">
-        <YoutubeVideo link={this.state.link}></YoutubeVideo>
+        <YoutubeVideo link={this.state.link}/>
         <h2>입력한 글씨를 누르면 초기화 됩니다.</h2>
         <ResultLylic items={this.state.select}/>
         <h2>보기</h2>
@@ -144,6 +154,7 @@ class App extends Component {
         <h2>해당 문제의 배점은 {this.state.score}점 입니다!!</h2>
         <h2>총 {this.state.sumScore}점 입니다!!</h2>
         <button onClick={this.initVariable}>다른 문제</button>
+        {retry}
       </div>
     );
   }

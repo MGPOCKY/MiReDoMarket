@@ -55,6 +55,10 @@ ul {
   background-color: greenyellow;
 }
 
+.selected {
+  background-color: grey;
+}
+
 .container {
   border: 2px solid brown;
   height: 9rem;
