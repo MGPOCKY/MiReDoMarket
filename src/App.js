@@ -137,19 +137,12 @@ class App extends Component {
       <div className="App">
         <YoutubeVideo link={this.state.link}></YoutubeVideo>
         <h2>입력한 글씨를 누르면 초기화 됩니다.</h2>
-        <br />
-        <br />
-        <br />
         <ResultLylic items={this.state.select}/>
-        <br />
-        <br />
-        <br />
         <h2>보기</h2>
         <YoutubeLylic func={this.selectCard} items={this.state.example}/>
         <br />
-        <br />
-        <h1>해당 문제의 배점은 {this.state.score}점 입니다!!</h1>
-        <h1>총 {this.state.sumScore}점 입니다!!</h1>
+        <h2>해당 문제의 배점은 {this.state.score}점 입니다!!</h2>
+        <h2>총 {this.state.sumScore}점 입니다!!</h2>
         <button onClick={this.initVariable}>다른 문제</button>
       </div>
     );

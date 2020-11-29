@@ -1,5 +1,5 @@
 body {
-  font: 14px 'Century Gothic', Futura, sans-serif;
+  font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
 }
 
@@ -10,7 +10,7 @@ ul {
 
 .board-row:after {
   clear: both;
-  content: '';
+  content: "";
   display: table;
 }
 
@@ -22,12 +22,11 @@ ul {
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 1rem;
   font-weight: bold;
-  line-height: 34px;
-  margin-right: 6px;
-  margin-top: -1px;
-  padding: 5px;
+  line-height: auto;
+  margin: 3px;
+  padding: 3px;
   text-align: center;
 }
 
@@ -54,4 +53,10 @@ ul {
 
 .green {
   background-color: greenyellow;
+}
+
+.container {
+  border: 2px solid brown;
+  height: 9rem;
+  text-align: center;
 }

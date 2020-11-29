@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class YoutubeLylic extends Component {
   render() {
-    return <div>{this.props.items}</div>;
+    return <div className="container">{this.props.items}</div>;
   }
 }
 
