@@ -153,7 +153,7 @@ class App extends Component {
     }));
   }
   render() {
-    let retry = this.state.retry ? <FontAwesomeIcon icon={faRedo} size="2x" onClick={this.resetCard}/> : "";
+    let retry = this.state.retry ? <FontAwesomeIcon icon={faRedo} size="2x" onClick={this.resetCard}/> + "재시도" : "";
     return (
       <div className="App">
         <YoutubeVideo link={this.state.link} name={this.state.name}/>
@@ -168,6 +168,7 @@ class App extends Component {
         <FontAwesomeIcon icon={faHistory} size="2x" onClick={this.reload}/> 다시 듣기
         <br/>
         <FontAwesomeIcon icon={faAngleRight} size="2x" onClick={this.initVariable}/> 다음 문제
+        <br/>
         {retry}
       </div>
     );

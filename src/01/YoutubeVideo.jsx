@@ -5,6 +5,7 @@ class YoutubeVideo extends Component {
     return (
       <div>
         <object
+          title={this.props.name}
           type="text/html"
           width="100%"
           height="500"
