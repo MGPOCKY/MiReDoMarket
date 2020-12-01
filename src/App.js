@@ -153,7 +153,7 @@ class App extends Component {
     }));
   }
   render() {
-    let retry = this.state.retry ? <FontAwesomeIcon icon={faRedo} size="2x" onClick={this.resetCard}/> + "재시도" : "";
+    let retry = this.state.retry ? <FontAwesomeIcon icon={faRedo} size="2x" onClick={this.resetCard}/>: "";
     return (
       <div className="App">
         <YoutubeVideo link={this.state.link} name={this.state.name}/>
@@ -169,7 +169,7 @@ class App extends Component {
         <br/>
         <FontAwesomeIcon icon={faAngleRight} size="2x" onClick={this.initVariable}/> 다음 문제
         <br/>
-        {retry}
+        {retry} 재시도
       </div>
     );
   }
