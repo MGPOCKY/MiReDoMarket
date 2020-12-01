@@ -8,7 +8,7 @@ class YoutubeVideo extends Component {
           type="text/html"
           width="100%"
           height="500"
-          alt={this.props.data}
+          aria-label={this.props.name}
           data={this.props.link}
         />
       </div>

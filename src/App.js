@@ -15,6 +15,7 @@ class App extends Component {
     this.resetCard = this.resetCard.bind(this);
     this.validate = this.validate.bind(this);
     this.initVariable = this.initVariable.bind(this);
+    this.reload = this.reload.bind(this);
 
     let initVar = this.initVariable();
     this.state = {
@@ -28,13 +29,14 @@ class App extends Component {
       sumScore: 0,
       score: initVar[5],
       exampleOrigin: initVar[4],
+      name: initVar[6],
     }
     //console.log(this.state.origin);
   }
   initVariable(){
     let randomInt = parseInt(Math.random() * dataList.length);
     let originh = dataList[randomInt]['origin'].split(' ');
-
+    let name = dataList[randomInt]['name'];
     let linkh = dataList[randomInt]['link'];
     let scoreh = dataList[randomInt]['score'];
     const emptyarr = [];
@@ -59,8 +61,9 @@ class App extends Component {
       score: scoreh,
       exampleOrigin: exampleItems,
       retry: false,
+      name: name,
     }))
-    return [originh, shufflearrh, selectItems, linkh, exampleItems, scoreh];
+    return [originh, shufflearrh, selectItems, linkh, exampleItems, scoreh, name];
   }
   componentDidUpdate() {
     if(this.state.index === this.state.arr.length && !this.state.finish) {
@@ -141,11 +144,18 @@ class App extends Component {
     }
     return true;
   }
+  reload() {
+    let relink = this.state.link.slice()+"&";
+    this.setState(()=>({
+      link: relink,
+    }));
+  }
   render() {
     let retry = this.state.retry ? <button onClick={this.resetCard}>재시도</button> : "";
     return (
       <div className="App">
-        <YoutubeVideo link={this.state.link}/>
+        <YoutubeVideo link={this.state.link} name={this.state.name}/>
+        <h1>{this.state.name}</h1>
         <h2>입력한 글씨를 누르면 초기화 됩니다.</h2>
         <ResultLylic items={this.state.select}/>
         <h2>보기</h2>
@@ -153,6 +163,8 @@ class App extends Component {
         <br />
         <h2>해당 문제의 배점은 {this.state.score}점 입니다!!</h2>
         <h2>총 {this.state.sumScore}점 입니다!!</h2>
+
+        <button onClick={this.reload}>다시 듣기</button>
         <button onClick={this.initVariable}>다른 문제</button>
         {retry}
       </div>
