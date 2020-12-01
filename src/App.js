@@ -5,6 +5,8 @@ import ResultLylic from './01/ResultLylic';
 import LylicBlock from './01/LylicBlock';
 import { Component } from 'react';
 import dataList from './data/data.json';
+import { faRedo, faHistory, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class App extends Component {
   constructor(props) {
@@ -151,7 +153,7 @@ class App extends Component {
     }));
   }
   render() {
-    let retry = this.state.retry ? <button onClick={this.resetCard}>재시도</button> : "";
+    let retry = this.state.retry ? <FontAwesomeIcon icon={faRedo} size="2x" onClick={this.resetCard}/> : "";
     return (
       <div className="App">
         <YoutubeVideo link={this.state.link} name={this.state.name}/>
@@ -163,9 +165,9 @@ class App extends Component {
         <br />
         <h2>해당 문제의 배점은 {this.state.score}점 입니다!!</h2>
         <h2>총 {this.state.sumScore}점 입니다!!</h2>
-
-        <button onClick={this.reload}>다시 듣기</button>
-        <button onClick={this.initVariable}>다른 문제</button>
+        <FontAwesomeIcon icon={faHistory} size="2x" onClick={this.reload}/> 다시 듣기
+        <br/>
+        <FontAwesomeIcon icon={faAngleRight} size="2x" onClick={this.initVariable}/> 다음 문제
         {retry}
       </div>
     );
